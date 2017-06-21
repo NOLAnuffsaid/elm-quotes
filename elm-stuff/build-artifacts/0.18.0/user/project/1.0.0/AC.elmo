@@ -1,0 +1,95 @@
+var _user$project$AC$unsubscribeFromChannel = F2(
+	function (m, chan) {
+		var _p0 = A2(
+			_bendyworks$elm_action_cable$ActionCable$unsubscribeFrom,
+			A2(
+				_bendyworks$elm_action_cable$ActionCable_Identifier$newIdentifier,
+				chan,
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'id', _1: 'client'},
+					_1: {ctor: '[]'}
+				}),
+			m.socket);
+		if (_p0.ctor === 'Ok') {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Native_Utils.update(
+					m,
+					{socket: _p0._0._0}),
+				{
+					ctor: '::',
+					_0: _p0._0._1,
+					_1: {ctor: '[]'}
+				});
+		} else {
+			var _p1 = A2(
+				_elm_lang$core$List$map,
+				_elm_lang$core$Debug$log('Unsubscribing: \n'),
+				{
+					ctor: '::',
+					_0: 'Errors unsubscribing!',
+					_1: {ctor: '[]'}
+				});
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				m,
+				{ctor: '[]'});
+		}
+	});
+var _user$project$AC$subscribeToChannel = F2(
+	function (m, chan) {
+		var _p2 = A2(
+			_bendyworks$elm_action_cable$ActionCable$subscribeTo,
+			A2(
+				_bendyworks$elm_action_cable$ActionCable_Identifier$newIdentifier,
+				chan,
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'id', _1: 'client'},
+					_1: {ctor: '[]'}
+				}),
+			m.socket);
+		if (_p2.ctor === 'Ok') {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Native_Utils.update(
+					m,
+					{socket: _p2._0._0}),
+				{
+					ctor: '::',
+					_0: _p2._0._1,
+					_1: {ctor: '[]'}
+				});
+		} else {
+			var _p3 = A2(
+				_elm_lang$core$List$map,
+				_elm_lang$core$Debug$log('Subscribing: \n'),
+				{
+					ctor: '::',
+					_0: 'Errors subscribing!',
+					_1: {ctor: '[]'}
+				});
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				m,
+				{ctor: '[]'});
+		}
+	});
+var _user$project$AC$channelId = A2(
+	_bendyworks$elm_action_cable$ActionCable_Identifier$newIdentifier,
+	'quotes_channel',
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: '', _1: ''},
+		_1: {ctor: '[]'}
+	});
+var _user$project$AC$initActionCable = function (s) {
+	return A2(
+		_bendyworks$elm_action_cable$ActionCable$onDidReceiveData,
+		_elm_lang$core$Maybe$Just(_user$project$Types$HandleData),
+		A2(
+			_bendyworks$elm_action_cable$ActionCable$onWelcome,
+			_elm_lang$core$Maybe$Just(_user$project$Types$OnWelcome),
+			_bendyworks$elm_action_cable$ActionCable$initCable(s)));
+};

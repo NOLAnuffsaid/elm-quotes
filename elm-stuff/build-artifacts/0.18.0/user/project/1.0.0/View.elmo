@@ -1,0 +1,46 @@
+var _user$project$View$styles = function (_p0) {
+	return _elm_lang$html$Html_Attributes$style(
+		_rtfeldman$elm_css$Css$asPairs(_p0));
+};
+var _user$project$View$contentContainerCss = {
+	ctor: '::',
+	_0: _rtfeldman$elm_css$Css$displayFlex,
+	_1: {
+		ctor: '::',
+		_0: _rtfeldman$elm_css$Css$flexDirection(_rtfeldman$elm_css$Css$row),
+		_1: {
+			ctor: '::',
+			_0: _rtfeldman$elm_css$Css$flexWrap(_rtfeldman$elm_css$Css$noWrap),
+			_1: {ctor: '[]'}
+		}
+	}
+};
+var _user$project$View$view = function (m) {
+	var errors = function () {
+		var _p1 = m.errors;
+		if (_p1.ctor === 'Just') {
+			return _p1._0;
+		} else {
+			return '';
+		}
+	}();
+	var _p2 = _elm_lang$core$String$isEmpty(errors) ? '' : A2(_elm_lang$core$Debug$log, 'Errors: ', errors);
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$View$styles(_user$project$View$contentContainerCss),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('ContentContainer'),
+				_1: {ctor: '[]'}
+			}
+		},
+		A2(
+			_elm_lang$core$List$map,
+			function (q) {
+				return _user$project$Components_Quotes$quoteComponent(q);
+			},
+			m.quotes));
+};
+var _user$project$View$ContentContainer = {ctor: 'ContentContainer'};

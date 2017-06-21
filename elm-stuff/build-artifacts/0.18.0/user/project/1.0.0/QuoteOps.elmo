@@ -1,0 +1,24 @@
+var _user$project$QuoteOps$quoteDecoder = A4(
+	_elm_lang$core$Json_Decode$map3,
+	_user$project$Types$Quote,
+	A2(_elm_lang$core$Json_Decode$field, 'quote', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'author', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'category', _elm_lang$core$Json_Decode$string));
+var _user$project$QuoteOps$quotesDecoder = _elm_lang$core$Json_Decode$list(_user$project$QuoteOps$quoteDecoder);
+var _user$project$QuoteOps$parseJsonQuoteValues = function (v) {
+	var _p0 = v;
+	if (_p0.ctor === 'Just') {
+		return _elm_lang$core$Result$toMaybe(
+			A2(_elm_lang$core$Json_Decode$decodeString, _user$project$QuoteOps$quotesDecoder, _p0._0));
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
+var _user$project$QuoteOps$parseJsonString = function (s) {
+	return _elm_lang$core$Result$toMaybe(
+		A2(_elm_lang$core$Json_Decode$decodeValue, _elm_lang$core$Json_Decode$string, s));
+};
+var _user$project$QuoteOps$parseResponse = function (resp) {
+	return _user$project$QuoteOps$parseJsonQuoteValues(
+		_user$project$QuoteOps$parseJsonString(resp));
+};

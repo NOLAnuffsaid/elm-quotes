@@ -1,0 +1,55 @@
+var _user$project$ActionCableOps$handleSubscriptionAction = F2(
+	function (m, r) {
+		var _p0 = r;
+		if (_p0.ctor === 'Just') {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Native_Utils.update(
+					m,
+					{errors: _elm_lang$core$Maybe$Nothing, socket: _p0._0._0}),
+				{
+					ctor: '::',
+					_0: _p0._0._1,
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Native_Utils.update(
+					m,
+					{
+						errors: _elm_lang$core$Maybe$Just('Errors are happening!')
+					}),
+				{ctor: '[]'});
+		}
+	});
+var _user$project$ActionCableOps$channelID = function (chan) {
+	return A2(
+		_bendyworks$elm_action_cable$ActionCable_Identifier$newIdentifier,
+		chan,
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'id', _1: 'client'},
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$ActionCableOps$attemptSubscriptionAction = F3(
+	function (fn, chan, m) {
+		var subFn = A2(
+			fn,
+			_user$project$ActionCableOps$channelID(chan),
+			m.socket);
+		return A2(
+			_user$project$ActionCableOps$handleSubscriptionAction,
+			m,
+			_elm_lang$core$Result$toMaybe(subFn));
+	});
+var _user$project$ActionCableOps$initActionCable = function (s) {
+	return A2(
+		_bendyworks$elm_action_cable$ActionCable$onDidReceiveData,
+		_elm_lang$core$Maybe$Just(_user$project$Types$HandleData),
+		A2(
+			_bendyworks$elm_action_cable$ActionCable$onWelcome,
+			_elm_lang$core$Maybe$Just(_user$project$Types$OnWelcome),
+			_bendyworks$elm_action_cable$ActionCable$initCable(s)));
+};

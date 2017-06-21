@@ -1,0 +1,175 @@
+var _user$project$Components_Quotes$styles = function (_p0) {
+	return _elm_lang$html$Html_Attributes$style(
+		_rtfeldman$elm_css$Css$asPairs(_p0));
+};
+var _user$project$Components_Quotes$quoteSmallTextRowCss = {
+	ctor: '::',
+	_0: _rtfeldman$elm_css$Css$displayFlex,
+	_1: {
+		ctor: '::',
+		_0: _rtfeldman$elm_css$Css$flexDirection(_rtfeldman$elm_css$Css$column),
+		_1: {
+			ctor: '::',
+			_0: _rtfeldman$elm_css$Css$alignItems(_rtfeldman$elm_css$Css$flexEnd),
+			_1: {
+				ctor: '::',
+				_0: _rtfeldman$elm_css$Css$justifyContent(_rtfeldman$elm_css$Css$spaceBetween),
+				_1: {
+					ctor: '::',
+					_0: _rtfeldman$elm_css$Css$width(
+						_rtfeldman$elm_css$Css$vw(100)),
+					_1: {
+						ctor: '::',
+						_0: _rtfeldman$elm_css$Css$paddingRight(
+							_rtfeldman$elm_css$Css$vw(30)),
+						_1: {
+							ctor: '::',
+							_0: _rtfeldman$elm_css$Css$textTransform(_rtfeldman$elm_css$Css$capitalize),
+							_1: {
+								ctor: '::',
+								_0: _rtfeldman$elm_css$Css$fontSize(
+									_rtfeldman$elm_css$Css$rem(0.75)),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _user$project$Components_Quotes$quoteRowCss = {
+	ctor: '::',
+	_0: _rtfeldman$elm_css$Css$displayFlex,
+	_1: {
+		ctor: '::',
+		_0: _rtfeldman$elm_css$Css$justifyContent(_rtfeldman$elm_css$Css$center),
+		_1: {
+			ctor: '::',
+			_0: _rtfeldman$elm_css$Css$flexDirection(_rtfeldman$elm_css$Css$row),
+			_1: {
+				ctor: '::',
+				_0: _rtfeldman$elm_css$Css$width(
+					_rtfeldman$elm_css$Css$vw(100)),
+				_1: {
+					ctor: '::',
+					_0: _rtfeldman$elm_css$Css$fontSize(
+						_rtfeldman$elm_css$Css$rem(2)),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	}
+};
+var _user$project$Components_Quotes$quoteContainerCss = {
+	ctor: '::',
+	_0: _rtfeldman$elm_css$Css$displayFlex,
+	_1: {
+		ctor: '::',
+		_0: _rtfeldman$elm_css$Css$alignItems(_rtfeldman$elm_css$Css$center),
+		_1: {
+			ctor: '::',
+			_0: _rtfeldman$elm_css$Css$justifyContent(_rtfeldman$elm_css$Css$spaceAround),
+			_1: {
+				ctor: '::',
+				_0: _rtfeldman$elm_css$Css$flexDirection(_rtfeldman$elm_css$Css$column),
+				_1: {
+					ctor: '::',
+					_0: _rtfeldman$elm_css$Css$height(
+						_rtfeldman$elm_css$Css$vh(100)),
+					_1: {
+						ctor: '::',
+						_0: _rtfeldman$elm_css$Css$width(
+							_rtfeldman$elm_css$Css$vw(100)),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	}
+};
+var _user$project$Components_Quotes$quoteComponent = function (q) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Components_Quotes$styles(_user$project$Components_Quotes$quoteContainerCss),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('QuoteContainer'),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _user$project$Components_Quotes$styles(_user$project$Components_Quotes$quoteRowCss),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$classList(
+							{
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'Row', _1: true},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'QuoteRow', _1: true},
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(q.quote),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _user$project$Components_Quotes$styles(_user$project$Components_Quotes$quoteSmallTextRowCss),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$classList(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'Row', _1: true},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'QuoteSmallTextRow', _1: true},
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$span,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('QuoteSmallText'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(q.author),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Components_Quotes$QuoteSmallTextRow = {ctor: 'QuoteSmallTextRow'};
+var _user$project$Components_Quotes$QuoteSmallText = {ctor: 'QuoteSmallText'};
+var _user$project$Components_Quotes$QuoteRow = {ctor: 'QuoteRow'};
+var _user$project$Components_Quotes$QuoteContainer = {ctor: 'QuoteContainer'};

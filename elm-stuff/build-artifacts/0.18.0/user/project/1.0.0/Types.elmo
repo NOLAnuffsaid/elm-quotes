@@ -1,0 +1,28 @@
+var _user$project$Types$Quote = F3(
+	function (a, b, c) {
+		return {quote: a, author: b, category: c};
+	});
+var _user$project$Types$Model = F3(
+	function (a, b, c) {
+		return {quotes: a, errors: b, socket: c};
+	});
+var _user$project$Types$ChannelId = F2(
+	function (a, b) {
+		return {channel: a, id: b};
+	});
+var _user$project$Types$OnWelcome = function (a) {
+	return {ctor: 'OnWelcome', _0: a};
+};
+var _user$project$Types$UnsubscribeFrom = function (a) {
+	return {ctor: 'UnsubscribeFrom', _0: a};
+};
+var _user$project$Types$SubscribeTo = function (a) {
+	return {ctor: 'SubscribeTo', _0: a};
+};
+var _user$project$Types$HandleData = F2(
+	function (a, b) {
+		return {ctor: 'HandleData', _0: a, _1: b};
+	});
+var _user$project$Types$CableMsg = function (a) {
+	return {ctor: 'CableMsg', _0: a};
+};

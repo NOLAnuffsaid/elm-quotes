@@ -1,0 +1,13 @@
+var _user$project$App$init = A2(
+	_elm_lang$core$Platform_Cmd_ops['!'],
+	{
+		quotes: {ctor: '[]'},
+		errors: _elm_lang$core$Maybe$Nothing,
+		socket: _user$project$ActionCableOps$initActionCable('ws://localhost:3000/cable')
+	},
+	{ctor: '[]'});
+var _user$project$App$subs = function (m) {
+	return A2(_bendyworks$elm_action_cable$ActionCable$listen, _user$project$Types$CableMsg, m.socket);
+};
+var _user$project$App$main = _elm_lang$html$Html$program(
+	{init: _user$project$App$init, view: _user$project$View$view, update: _user$project$Update$update, subscriptions: _user$project$App$subs})();

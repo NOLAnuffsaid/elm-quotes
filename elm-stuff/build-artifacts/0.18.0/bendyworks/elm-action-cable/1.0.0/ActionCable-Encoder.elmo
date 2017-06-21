@@ -1,0 +1,99 @@
+var _bendyworks$elm_action_cable$ActionCable_Encoder$identifierValue = function (_p0) {
+	var _p1 = _p0;
+	return A2(
+		_elm_lang$core$List$map,
+		_elm_lang$core$Tuple$mapSecond(_elm_lang$core$Json_Encode$string),
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'channel', _1: _p1._0},
+			_1: _p1._1
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable_Encoder$jsonObjectToString = function (_p2) {
+	return A2(
+		_elm_lang$core$Json_Encode$encode,
+		0,
+		_elm_lang$core$Json_Encode$object(_p2));
+};
+var _bendyworks$elm_action_cable$ActionCable_Encoder$encodeIdentifier = function (_p3) {
+	return _bendyworks$elm_action_cable$ActionCable_Encoder$jsonObjectToString(
+		_bendyworks$elm_action_cable$ActionCable_Encoder$identifierValue(_p3));
+};
+var _bendyworks$elm_action_cable$ActionCable_Encoder$perform = F3(
+	function (action, data, identifier) {
+		var encodedData = _bendyworks$elm_action_cable$ActionCable_Encoder$jsonObjectToString(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'action',
+					_1: _elm_lang$core$Json_Encode$string(action)
+				},
+				_1: data
+			});
+		var encodedIdentifier = _bendyworks$elm_action_cable$ActionCable_Encoder$encodeIdentifier(identifier);
+		return _bendyworks$elm_action_cable$ActionCable_Encoder$jsonObjectToString(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'command',
+					_1: _elm_lang$core$Json_Encode$string('message')
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'identifier',
+						_1: _elm_lang$core$Json_Encode$string(encodedIdentifier)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'data',
+							_1: _elm_lang$core$Json_Encode$string(encodedData)
+						},
+						_1: {ctor: '[]'}
+					}
+				}
+			});
+	});
+var _bendyworks$elm_action_cable$ActionCable_Encoder$unsubscribeFrom = function (identifier) {
+	return _bendyworks$elm_action_cable$ActionCable_Encoder$jsonObjectToString(
+		A2(
+			_elm_lang$core$List$map,
+			_elm_lang$core$Tuple$mapSecond(_elm_lang$core$Json_Encode$string),
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'identifier',
+					_1: _bendyworks$elm_action_cable$ActionCable_Encoder$encodeIdentifier(identifier)
+				},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'command', _1: 'unsubscribe'},
+					_1: {ctor: '[]'}
+				}
+			}));
+};
+var _bendyworks$elm_action_cable$ActionCable_Encoder$subscribeTo = function (identifier) {
+	return _bendyworks$elm_action_cable$ActionCable_Encoder$jsonObjectToString(
+		A2(
+			_elm_lang$core$List$map,
+			_elm_lang$core$Tuple$mapSecond(_elm_lang$core$Json_Encode$string),
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'identifier',
+					_1: _bendyworks$elm_action_cable$ActionCable_Encoder$encodeIdentifier(identifier)
+				},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'command', _1: 'subscribe'},
+					_1: {ctor: '[]'}
+				}
+			}));
+};

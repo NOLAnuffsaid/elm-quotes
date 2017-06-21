@@ -1,0 +1,16 @@
+var _bendyworks$elm_action_cable$ActionCable_Subscription$isActive = function (subscription) {
+	var _p0 = subscription;
+	switch (_p0.ctor) {
+		case 'SubscriptionAttempted':
+			return true;
+		case 'Subscribed':
+			return true;
+		default:
+			return false;
+	}
+};
+var _bendyworks$elm_action_cable$ActionCable_Subscription$Unsubscribed = {ctor: 'Unsubscribed'};
+var _bendyworks$elm_action_cable$ActionCable_Subscription$SubscriptionRejected = {ctor: 'SubscriptionRejected'};
+var _bendyworks$elm_action_cable$ActionCable_Subscription$Subscribed = {ctor: 'Subscribed'};
+var _bendyworks$elm_action_cable$ActionCable_Subscription$SubscriptionAttempted = {ctor: 'SubscriptionAttempted'};
+var _bendyworks$elm_action_cable$ActionCable_Subscription$newSubscription = _bendyworks$elm_action_cable$ActionCable_Subscription$SubscriptionAttempted;

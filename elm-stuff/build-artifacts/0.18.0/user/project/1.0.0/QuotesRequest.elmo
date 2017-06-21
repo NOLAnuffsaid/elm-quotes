@@ -1,0 +1,7 @@
+var _user$project$QuotesRequest$quoteDecoder = A4(
+	_elm_lang$core$Json_Decode$map3,
+	_user$project$Types$Quote,
+	A2(_elm_lang$core$Json_Decode$field, 'quote', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'author', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'category', _elm_lang$core$Json_Decode$string));
+var _user$project$QuotesRequest$quotesDecoder = _elm_lang$core$Json_Decode$list(_user$project$QuotesRequest$quoteDecoder);

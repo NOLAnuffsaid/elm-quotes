@@ -1,0 +1,513 @@
+var _bendyworks$elm_action_cable$ActionCable$decodeMessage = function (_p0) {
+	return A2(
+		_elm_lang$core$Result$withDefault,
+		_bendyworks$elm_action_cable$ActionCable_Msg$NoOp,
+		_bendyworks$elm_action_cable$ActionCable_Decoder$parseJson(_p0));
+};
+var _bendyworks$elm_action_cable$ActionCable$qlog = F2(
+	function (string, _p1) {
+		var _p2 = _p1;
+		var _p3 = _p2._0.debug ? A2(_elm_lang$core$Debug$log, '[ActionCable]', string) : '';
+		return _elm_lang$core$Basics$identity;
+	});
+var _bendyworks$elm_action_cable$ActionCable$log = F2(
+	function (string, cable) {
+		return cable.debug ? _elm_lang$core$Debug$log(
+			A2(_elm_lang$core$Basics_ops['++'], '[ActionCable] ', string)) : _elm_lang$core$Basics$identity;
+	});
+var _bendyworks$elm_action_cable$ActionCable$logg = F2(
+	function (string, _p4) {
+		var _p5 = _p4;
+		return A2(_bendyworks$elm_action_cable$ActionCable$log, string, _p5._0);
+	});
+var _bendyworks$elm_action_cable$ActionCable$extract = function (_p6) {
+	var _p7 = _p6;
+	return _p7._0;
+};
+var _bendyworks$elm_action_cable$ActionCable$status = function (_p8) {
+	return function (_) {
+		return _.status;
+	}(
+		_bendyworks$elm_action_cable$ActionCable$extract(_p8));
+};
+var _bendyworks$elm_action_cable$ActionCable$subscriptions = function (_p9) {
+	return function (_) {
+		return _.subs;
+	}(
+		_bendyworks$elm_action_cable$ActionCable$extract(_p9));
+};
+var _bendyworks$elm_action_cable$ActionCable$getSubscription = function (identifier) {
+	return function (_p10) {
+		return A2(
+			_elm_lang$core$Dict$get,
+			identifier,
+			_bendyworks$elm_action_cable$ActionCable$subscriptions(_p10));
+	};
+};
+var _bendyworks$elm_action_cable$ActionCable$actionCableMessages = function (cable) {
+	return A2(
+		_elm_lang$websocket$WebSocket$listen,
+		_bendyworks$elm_action_cable$ActionCable$extract(cable).url,
+		_bendyworks$elm_action_cable$ActionCable$decodeMessage);
+};
+var _bendyworks$elm_action_cable$ActionCable$listen = F2(
+	function (tagger, cable) {
+		return A2(
+			_elm_lang$core$Platform_Sub$map,
+			tagger,
+			_bendyworks$elm_action_cable$ActionCable$actionCableMessages(cable));
+	});
+var _bendyworks$elm_action_cable$ActionCable$errorToString = function (error) {
+	var _p11 = error;
+	switch (_p11.ctor) {
+		case 'CableDisonnectedError':
+			return 'Cable is disconnected. Please ensure you are calling `ActionCable.listen` in your subscriptions';
+		case 'ChannelNotSubscribedError':
+			return 'Channel was not subscribed to';
+		case 'AlreadySubscribedError':
+			return 'Channel is already subscribed to';
+		case 'AlreadyTryingToSubscribeError':
+			return 'Already trying to subscribe to channel';
+		default:
+			return _p11._0;
+	}
+};
+var _bendyworks$elm_action_cable$ActionCable$ActionCableData = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {url: a, status: b, onWelcome: c, onPing: d, onConfirm: e, onRejection: f, onDidReceiveData: g, subs: h, debug: i};
+	});
+var _bendyworks$elm_action_cable$ActionCable$ActionCable = function (a) {
+	return {ctor: 'ActionCable', _0: a};
+};
+var _bendyworks$elm_action_cable$ActionCable$map = function (f) {
+	return function (_p12) {
+		return _bendyworks$elm_action_cable$ActionCable$ActionCable(
+			f(
+				_bendyworks$elm_action_cable$ActionCable$extract(_p12)));
+	};
+};
+var _bendyworks$elm_action_cable$ActionCable$onWelcome = function (maybeMsg) {
+	return _bendyworks$elm_action_cable$ActionCable$map(
+		function (cable) {
+			return _elm_lang$core$Native_Utils.update(
+				cable,
+				{
+					onWelcome: A3(_bendyworks$elm_action_cable$ActionCable$log, 'onWelcome set to', cable, maybeMsg)
+				});
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable$onPing = function (maybeMsg) {
+	return _bendyworks$elm_action_cable$ActionCable$map(
+		function (cable) {
+			return _elm_lang$core$Native_Utils.update(
+				cable,
+				{
+					onPing: A3(_bendyworks$elm_action_cable$ActionCable$log, 'onPing set to', cable, maybeMsg)
+				});
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable$onConfirm = function (maybeMsg) {
+	return _bendyworks$elm_action_cable$ActionCable$map(
+		function (cable) {
+			return _elm_lang$core$Native_Utils.update(
+				cable,
+				{
+					onConfirm: A3(_bendyworks$elm_action_cable$ActionCable$log, 'onConfirm set to', cable, maybeMsg)
+				});
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable$onRejection = function (maybeMsg) {
+	return _bendyworks$elm_action_cable$ActionCable$map(
+		function (cable) {
+			return _elm_lang$core$Native_Utils.update(
+				cable,
+				{
+					onRejection: A3(_bendyworks$elm_action_cable$ActionCable$log, 'onRejection set to', cable, maybeMsg)
+				});
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable$onDidReceiveData = function (maybeMsg) {
+	return _bendyworks$elm_action_cable$ActionCable$map(
+		function (cable) {
+			return _elm_lang$core$Native_Utils.update(
+				cable,
+				{
+					onDidReceiveData: A3(_bendyworks$elm_action_cable$ActionCable$log, 'onDidReceiveData set to', cable, maybeMsg)
+				});
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable$withDebug = function (bool) {
+	return _bendyworks$elm_action_cable$ActionCable$map(
+		function (cable) {
+			return _elm_lang$core$Native_Utils.update(
+				cable,
+				{
+					debug: A2(_elm_lang$core$Debug$log, '[ActionCable] Debug set to', bool)
+				});
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable$setSubs = function (f) {
+	return _bendyworks$elm_action_cable$ActionCable$map(
+		function (cable) {
+			return _elm_lang$core$Native_Utils.update(
+				cable,
+				{
+					subs: f(cable.subs)
+				});
+		});
+};
+var _bendyworks$elm_action_cable$ActionCable$removeSub = function (identifier) {
+	return _bendyworks$elm_action_cable$ActionCable$setSubs(
+		_elm_lang$core$Dict$remove(identifier));
+};
+var _bendyworks$elm_action_cable$ActionCable$drop = F2(
+	function (identifier, cable) {
+		return {
+			ctor: '_Tuple2',
+			_0: A2(_bendyworks$elm_action_cable$ActionCable$removeSub, identifier, cable),
+			_1: function () {
+				if (A2(
+					_elm_lang$core$Maybe$withDefault,
+					false,
+					A2(
+						_elm_lang$core$Maybe$map,
+						_bendyworks$elm_action_cable$ActionCable_Subscription$isActive,
+						A2(_bendyworks$elm_action_cable$ActionCable$getSubscription, identifier, cable)))) {
+					var id = A3(_bendyworks$elm_action_cable$ActionCable$logg, 'Unsubscribing and dropping channel', cable, identifier);
+					return A2(
+						_elm_lang$websocket$WebSocket$send,
+						_bendyworks$elm_action_cable$ActionCable$extract(cable).url,
+						_bendyworks$elm_action_cable$ActionCable_Encoder$unsubscribeFrom(id));
+				} else {
+					var _p13 = A3(_bendyworks$elm_action_cable$ActionCable$logg, 'Dropping channel', cable, identifier);
+					return _elm_lang$core$Platform_Cmd$none;
+				}
+			}()
+		};
+	});
+var _bendyworks$elm_action_cable$ActionCable$addSubscription = F2(
+	function (identifier, newSubscription) {
+		return _bendyworks$elm_action_cable$ActionCable$setSubs(
+			A2(_elm_lang$core$Dict$insert, identifier, newSubscription));
+	});
+var _bendyworks$elm_action_cable$ActionCable$setSubStatus = F2(
+	function (identifier, status) {
+		return _bendyworks$elm_action_cable$ActionCable$setSubs(
+			A2(
+				_elm_lang$core$Dict$update,
+				identifier,
+				_elm_lang$core$Maybe$map(
+					_elm_lang$core$Basics$always(status))));
+	});
+var _bendyworks$elm_action_cable$ActionCable$Connected = {ctor: 'Connected'};
+var _bendyworks$elm_action_cable$ActionCable$update = F2(
+	function (msg, cable) {
+		var msgToCmd = F2(
+			function (userCallback, populate) {
+				return A2(
+					_elm_lang$core$Maybe$map,
+					function (_p14) {
+						return A2(
+							_elm_lang$core$Task$perform,
+							populate,
+							_elm_lang$core$Task$succeed(_p14));
+					},
+					function (_p15) {
+						return userCallback(
+							_bendyworks$elm_action_cable$ActionCable$extract(_p15));
+					}(cable));
+			});
+		var _p16 = function () {
+			var _p17 = msg;
+			switch (_p17.ctor) {
+				case 'Welcome':
+					return A3(
+						_bendyworks$elm_action_cable$ActionCable$qlog,
+						'Connected (Welcome!)',
+						cable,
+						{
+							ctor: '_Tuple2',
+							_0: A2(
+								_bendyworks$elm_action_cable$ActionCable$map,
+								function (cable) {
+									return _elm_lang$core$Native_Utils.update(
+										cable,
+										{status: _bendyworks$elm_action_cable$ActionCable$Connected});
+								},
+								cable),
+							_1: A2(
+								msgToCmd,
+								function (_) {
+									return _.onWelcome;
+								},
+								function (m) {
+									return m(
+										{ctor: '_Tuple0'});
+								})
+						});
+				case 'Confirm':
+					var _p18 = _p17._0;
+					return {
+						ctor: '_Tuple2',
+						_0: A3(
+							_bendyworks$elm_action_cable$ActionCable$setSubStatus,
+							A3(_bendyworks$elm_action_cable$ActionCable$logg, 'Subscription Confirmed', cable, _p18),
+							_bendyworks$elm_action_cable$ActionCable_Subscription$Subscribed,
+							cable),
+						_1: A2(
+							msgToCmd,
+							function (_) {
+								return _.onConfirm;
+							},
+							function (m) {
+								return m(_p18);
+							})
+					};
+				case 'Rejected':
+					var _p19 = _p17._0;
+					return {
+						ctor: '_Tuple2',
+						_0: A3(
+							_bendyworks$elm_action_cable$ActionCable$setSubStatus,
+							A3(_bendyworks$elm_action_cable$ActionCable$logg, 'Subscription Rejected', cable, _p19),
+							_bendyworks$elm_action_cable$ActionCable_Subscription$SubscriptionRejected,
+							cable),
+						_1: A2(
+							msgToCmd,
+							function (_) {
+								return _.onRejection;
+							},
+							function (m) {
+								return m(_p19);
+							})
+					};
+				case 'ReceiveData':
+					var _p22 = _p17._1;
+					var _p21 = _p17._0;
+					var _p20 = A3(
+						_bendyworks$elm_action_cable$ActionCable$logg,
+						'Data Received',
+						cable,
+						{ctor: '_Tuple2', _0: _p21, _1: _p22});
+					return {
+						ctor: '_Tuple2',
+						_0: cable,
+						_1: A2(
+							msgToCmd,
+							function (_) {
+								return _.onDidReceiveData;
+							},
+							function (m) {
+								return A2(m, _p21, _p22);
+							})
+					};
+				case 'Ping':
+					var _p24 = _p17._0;
+					var _p23 = A3(_bendyworks$elm_action_cable$ActionCable$logg, 'Ping Received', cable, _p24);
+					return {
+						ctor: '_Tuple2',
+						_0: cable,
+						_1: A2(
+							msgToCmd,
+							function (_) {
+								return _.onPing;
+							},
+							function (m) {
+								return m(_p24);
+							})
+					};
+				default:
+					return {ctor: '_Tuple2', _0: cable, _1: _elm_lang$core$Maybe$Nothing};
+			}
+		}();
+		var newCable = _p16._0;
+		var maybeCmd = _p16._1;
+		return {
+			ctor: '_Tuple2',
+			_0: newCable,
+			_1: A2(_elm_lang$core$Maybe$withDefault, _elm_lang$core$Platform_Cmd$none, maybeCmd)
+		};
+	});
+var _bendyworks$elm_action_cable$ActionCable$Disconnected = {ctor: 'Disconnected'};
+var _bendyworks$elm_action_cable$ActionCable$initCable = function (url) {
+	return _bendyworks$elm_action_cable$ActionCable$ActionCable(
+		{url: url, status: _bendyworks$elm_action_cable$ActionCable$Disconnected, onWelcome: _elm_lang$core$Maybe$Nothing, onPing: _elm_lang$core$Maybe$Nothing, onConfirm: _elm_lang$core$Maybe$Nothing, onRejection: _elm_lang$core$Maybe$Nothing, onDidReceiveData: _elm_lang$core$Maybe$Nothing, subs: _elm_lang$core$Dict$empty, debug: false});
+};
+var _bendyworks$elm_action_cable$ActionCable$GeneralCableError = function (a) {
+	return {ctor: 'GeneralCableError', _0: a};
+};
+var _bendyworks$elm_action_cable$ActionCable$AlreadyTryingToSubscribeError = {ctor: 'AlreadyTryingToSubscribeError'};
+var _bendyworks$elm_action_cable$ActionCable$AlreadySubscribedError = {ctor: 'AlreadySubscribedError'};
+var _bendyworks$elm_action_cable$ActionCable$ChannelNotSubscribedError = {ctor: 'ChannelNotSubscribedError'};
+var _bendyworks$elm_action_cable$ActionCable$CableDisonnectedError = {ctor: 'CableDisonnectedError'};
+var _bendyworks$elm_action_cable$ActionCable$activeCable = function () {
+	var toActiveCable = function (cable) {
+		var _p25 = _bendyworks$elm_action_cable$ActionCable$status(cable);
+		if (_p25.ctor === 'Disconnected') {
+			return A3(
+				_bendyworks$elm_action_cable$ActionCable$logg,
+				'Error',
+				cable,
+				_elm_lang$core$Result$Err(_bendyworks$elm_action_cable$ActionCable$CableDisonnectedError));
+		} else {
+			return _elm_lang$core$Result$Ok(cable);
+		}
+	};
+	return function (_p26) {
+		return A2(
+			_elm_lang$core$Result$andThen,
+			toActiveCable,
+			_elm_lang$core$Result$Ok(_p26));
+	};
+}();
+var _bendyworks$elm_action_cable$ActionCable$subscribeTo = function (identifier) {
+	var channelNotAlreadySubscribed = F2(
+		function (identifier, cable) {
+			var _p27 = A2(_bendyworks$elm_action_cable$ActionCable$getSubscription, identifier, cable);
+			_v6_2:
+			do {
+				if (_p27.ctor === 'Just') {
+					switch (_p27._0.ctor) {
+						case 'SubscriptionAttempted':
+							return A3(
+								_bendyworks$elm_action_cable$ActionCable$logg,
+								'Error before subscribing',
+								cable,
+								_elm_lang$core$Result$Err(_bendyworks$elm_action_cable$ActionCable$AlreadyTryingToSubscribeError));
+						case 'Subscribed':
+							return A3(
+								_bendyworks$elm_action_cable$ActionCable$logg,
+								'Error before subscribing',
+								cable,
+								_elm_lang$core$Result$Err(_bendyworks$elm_action_cable$ActionCable$AlreadySubscribedError));
+						default:
+							break _v6_2;
+					}
+				} else {
+					break _v6_2;
+				}
+			} while(false);
+			return _elm_lang$core$Result$Ok(cable);
+		});
+	return function (_p28) {
+		return A2(
+			_elm_lang$core$Result$map,
+			function (cable_) {
+				return {
+					ctor: '_Tuple2',
+					_0: A3(
+						_bendyworks$elm_action_cable$ActionCable$addSubscription,
+						A3(_bendyworks$elm_action_cable$ActionCable$logg, 'Attempting to subscribe to', cable_, identifier),
+						_bendyworks$elm_action_cable$ActionCable_Subscription$newSubscription,
+						cable_),
+					_1: A2(
+						_elm_lang$websocket$WebSocket$send,
+						_bendyworks$elm_action_cable$ActionCable$extract(cable_).url,
+						_bendyworks$elm_action_cable$ActionCable_Encoder$subscribeTo(identifier))
+				};
+			},
+			A2(
+				_elm_lang$core$Result$andThen,
+				channelNotAlreadySubscribed(identifier),
+				_bendyworks$elm_action_cable$ActionCable$activeCable(_p28)));
+	};
+};
+var _bendyworks$elm_action_cable$ActionCable$unsubscribeFrom = function (identifier) {
+	var doUnsubscribe = F2(
+		function (identifier, cable_) {
+			var _p29 = A2(_bendyworks$elm_action_cable$ActionCable$getSubscription, identifier, cable_);
+			if (_p29.ctor === 'Just') {
+				return _elm_lang$core$Result$Ok(
+					{
+						ctor: '_Tuple2',
+						_0: A3(_bendyworks$elm_action_cable$ActionCable$setSubStatus, identifier, _bendyworks$elm_action_cable$ActionCable_Subscription$Unsubscribed, cable_),
+						_1: A2(
+							_elm_lang$websocket$WebSocket$send,
+							_bendyworks$elm_action_cable$ActionCable$extract(cable_).url,
+							_bendyworks$elm_action_cable$ActionCable_Encoder$unsubscribeFrom(
+								A3(_bendyworks$elm_action_cable$ActionCable$logg, 'Attempting to unsubscribe from', cable_, identifier)))
+					});
+			} else {
+				return _elm_lang$core$Result$Err(_bendyworks$elm_action_cable$ActionCable$ChannelNotSubscribedError);
+			}
+		});
+	var channelAlreadyUnsubscribed = F2(
+		function (identifier, cable) {
+			var _p30 = A2(_bendyworks$elm_action_cable$ActionCable$getSubscription, identifier, cable);
+			_v8_2:
+			do {
+				if (_p30.ctor === 'Just') {
+					switch (_p30._0.ctor) {
+						case 'SubscriptionAttempted':
+							return _elm_lang$core$Result$Ok(cable);
+						case 'Subscribed':
+							return _elm_lang$core$Result$Ok(cable);
+						default:
+							break _v8_2;
+					}
+				} else {
+					break _v8_2;
+				}
+			} while(false);
+			return A3(
+				_bendyworks$elm_action_cable$ActionCable$logg,
+				'Error before unsubscribing',
+				cable,
+				_elm_lang$core$Result$Err(_bendyworks$elm_action_cable$ActionCable$ChannelNotSubscribedError));
+		});
+	return function (_p31) {
+		return A2(
+			_elm_lang$core$Result$andThen,
+			doUnsubscribe(identifier),
+			A2(
+				_elm_lang$core$Result$andThen,
+				channelAlreadyUnsubscribed(identifier),
+				_bendyworks$elm_action_cable$ActionCable$activeCable(_p31)));
+	};
+};
+var _bendyworks$elm_action_cable$ActionCable$activeChannel = function (identifier) {
+	return function (_p32) {
+		return A2(
+			_elm_lang$core$Result$andThen,
+			function (cable) {
+				return A2(
+					_elm_lang$core$Maybe$withDefault,
+					false,
+					A2(
+						_elm_lang$core$Maybe$map,
+						_bendyworks$elm_action_cable$ActionCable_Subscription$isActive,
+						A2(_bendyworks$elm_action_cable$ActionCable$getSubscription, identifier, cable))) ? _elm_lang$core$Result$Ok(cable) : A3(
+					_bendyworks$elm_action_cable$ActionCable$logg,
+					'Error',
+					cable,
+					_elm_lang$core$Result$Err(_bendyworks$elm_action_cable$ActionCable$ChannelNotSubscribedError));
+			},
+			_bendyworks$elm_action_cable$ActionCable$activeCable(_p32));
+	};
+};
+var _bendyworks$elm_action_cable$ActionCable$perform = F3(
+	function (action, data, identifier) {
+		var thisLog = F2(
+			function (cable, ret) {
+				return A2(
+					_elm_lang$core$Basics$always,
+					ret,
+					A3(
+						_bendyworks$elm_action_cable$ActionCable$logg,
+						'Sending',
+						cable,
+						{ctor: '_Tuple2', _0: identifier, _1: data}));
+			});
+		var encoded = A3(_bendyworks$elm_action_cable$ActionCable_Encoder$perform, action, data, identifier);
+		return function (_p33) {
+			return A2(
+				_elm_lang$core$Result$map,
+				function (cable) {
+					return A2(
+						_elm_lang$websocket$WebSocket$send,
+						_bendyworks$elm_action_cable$ActionCable$extract(cable).url,
+						A2(thisLog, cable, encoded));
+				},
+				A2(_bendyworks$elm_action_cable$ActionCable$activeChannel, identifier, _p33));
+		};
+	});

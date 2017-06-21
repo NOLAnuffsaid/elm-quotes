@@ -1,0 +1,55 @@
+var _user$project$Update$update = F2(
+	function (a, m) {
+		var _p0 = a;
+		switch (_p0.ctor) {
+			case 'OnWelcome':
+				var t = A2(
+					_elm_lang$core$Task$perform,
+					_user$project$Types$SubscribeTo,
+					_elm_lang$core$Task$succeed('QuotesChannel'));
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					m,
+					{
+						ctor: '::',
+						_0: t,
+						_1: {ctor: '[]'}
+					});
+			case 'CableMsg':
+				return function (_p1) {
+					var _p2 = _p1;
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							m,
+							{socket: _p2._0}),
+						{
+							ctor: '::',
+							_0: _p2._1,
+							_1: {ctor: '[]'}
+						});
+				}(
+					A2(_bendyworks$elm_action_cable$ActionCable$update, _p0._0, m.socket));
+			case 'HandleData':
+				var _p3 = _user$project$QuoteOps$parseResponse(_p0._1);
+				if (_p3.ctor === 'Just') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							m,
+							{
+								quotes: A2(_elm_lang$core$List$append, m.quotes, _p3._0)
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						m,
+						{ctor: '[]'});
+				}
+			case 'SubscribeTo':
+				return A3(_user$project$ActionCableOps$attemptSubscriptionAction, _bendyworks$elm_action_cable$ActionCable$subscribeTo, _p0._0, m);
+			default:
+				return A3(_user$project$ActionCableOps$attemptSubscriptionAction, _bendyworks$elm_action_cable$ActionCable$unsubscribeFrom, _p0._0, m);
+		}
+	});

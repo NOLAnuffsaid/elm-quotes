@@ -1,0 +1,15 @@
+var _bendyworks$elm_action_cable$ActionCable_Msg$NoOp = {ctor: 'NoOp'};
+var _bendyworks$elm_action_cable$ActionCable_Msg$Rejected = function (a) {
+	return {ctor: 'Rejected', _0: a};
+};
+var _bendyworks$elm_action_cable$ActionCable_Msg$ReceiveData = F2(
+	function (a, b) {
+		return {ctor: 'ReceiveData', _0: a, _1: b};
+	});
+var _bendyworks$elm_action_cable$ActionCable_Msg$Confirm = function (a) {
+	return {ctor: 'Confirm', _0: a};
+};
+var _bendyworks$elm_action_cable$ActionCable_Msg$Ping = function (a) {
+	return {ctor: 'Ping', _0: a};
+};
+var _bendyworks$elm_action_cable$ActionCable_Msg$Welcome = {ctor: 'Welcome'};

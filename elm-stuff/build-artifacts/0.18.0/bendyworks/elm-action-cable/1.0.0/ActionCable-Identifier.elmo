@@ -1,0 +1,4 @@
+var _bendyworks$elm_action_cable$ActionCable_Identifier$newIdentifier = F2(
+	function (v0, v1) {
+		return {ctor: '_Tuple2', _0: v0, _1: v1};
+	});

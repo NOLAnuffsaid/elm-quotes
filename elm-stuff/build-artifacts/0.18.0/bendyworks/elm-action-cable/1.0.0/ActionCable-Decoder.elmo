@@ -1,0 +1,106 @@
+var _bendyworks$elm_action_cable$ActionCable_Decoder$identifierDecoder = function () {
+	var parseValue = function (s) {
+		var _p0 = A2(
+			_elm_lang$core$Json_Decode$decodeString,
+			_elm_lang$core$Json_Decode$keyValuePairs(_elm_lang$core$Json_Decode$string),
+			s);
+		if (_p0.ctor === 'Ok') {
+			return _elm_lang$core$Json_Decode$succeed(_p0._0);
+		} else {
+			return _elm_lang$core$Json_Decode$fail('failed to parse identifier string value');
+		}
+	};
+	var extractIdentifier = function (list) {
+		var _p1 = A2(
+			_elm_lang$core$List$partition,
+			function (_p2) {
+				var _p3 = _p2;
+				return _elm_lang$core$Native_Utils.eq(_p3._0, 'channel');
+			},
+			list);
+		var channelList = _p1._0;
+		var params = _p1._1;
+		var channel = A2(
+			_elm_lang$core$Maybe$map,
+			_elm_lang$core$Tuple$second,
+			_elm_lang$core$List$head(channelList));
+		var _p4 = channel;
+		if (_p4.ctor === 'Just') {
+			return _elm_lang$core$Json_Decode$succeed(
+				A2(_bendyworks$elm_action_cable$ActionCable_Identifier$newIdentifier, _p4._0, params));
+		} else {
+			return _elm_lang$core$Json_Decode$fail('channel not specified');
+		}
+	};
+	return A2(
+		_elm_lang$core$Json_Decode$andThen,
+		extractIdentifier,
+		A2(_elm_lang$core$Json_Decode$andThen, parseValue, _elm_lang$core$Json_Decode$string));
+}();
+var _bendyworks$elm_action_cable$ActionCable_Decoder$typeIs = function (typeName) {
+	var typeDecoder = function (s) {
+		return _elm_lang$core$Native_Utils.eq(s, typeName) ? _elm_lang$core$Json_Decode$succeed(typeName) : _elm_lang$core$Json_Decode$fail('');
+	};
+	return A2(_elm_lang$core$Json_Decode$andThen, typeDecoder, _elm_lang$core$Json_Decode$string);
+};
+var _bendyworks$elm_action_cable$ActionCable_Decoder$rejectionDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_elm_lang$core$Basics$always(_bendyworks$elm_action_cable$ActionCable_Msg$Rejected),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'type',
+		_bendyworks$elm_action_cable$ActionCable_Decoder$typeIs('reject_subscription')),
+	A2(_elm_lang$core$Json_Decode$field, 'identifier', _bendyworks$elm_action_cable$ActionCable_Decoder$identifierDecoder));
+var _bendyworks$elm_action_cable$ActionCable_Decoder$receiveDataDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_bendyworks$elm_action_cable$ActionCable_Msg$ReceiveData,
+	A2(_elm_lang$core$Json_Decode$field, 'identifier', _bendyworks$elm_action_cable$ActionCable_Decoder$identifierDecoder),
+	A2(_elm_lang$core$Json_Decode$field, 'message', _elm_lang$core$Json_Decode$value));
+var _bendyworks$elm_action_cable$ActionCable_Decoder$confirmDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_elm_lang$core$Basics$always(_bendyworks$elm_action_cable$ActionCable_Msg$Confirm),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'type',
+		_bendyworks$elm_action_cable$ActionCable_Decoder$typeIs('confirm_subscription')),
+	A2(_elm_lang$core$Json_Decode$field, 'identifier', _bendyworks$elm_action_cable$ActionCable_Decoder$identifierDecoder));
+var _bendyworks$elm_action_cable$ActionCable_Decoder$pingDecoder = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_elm_lang$core$Basics$always(_bendyworks$elm_action_cable$ActionCable_Msg$Ping),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'type',
+		_bendyworks$elm_action_cable$ActionCable_Decoder$typeIs('ping')),
+	A2(_elm_lang$core$Json_Decode$field, 'message', _elm_lang$core$Json_Decode$int));
+var _bendyworks$elm_action_cable$ActionCable_Decoder$welcomeDecoder = A2(
+	_elm_lang$core$Json_Decode$map,
+	_elm_lang$core$Basics$always(_bendyworks$elm_action_cable$ActionCable_Msg$Welcome),
+	A2(
+		_elm_lang$core$Json_Decode$field,
+		'type',
+		_bendyworks$elm_action_cable$ActionCable_Decoder$typeIs('welcome')));
+var _bendyworks$elm_action_cable$ActionCable_Decoder$decoder = _elm_lang$core$Json_Decode$oneOf(
+	{
+		ctor: '::',
+		_0: _bendyworks$elm_action_cable$ActionCable_Decoder$welcomeDecoder,
+		_1: {
+			ctor: '::',
+			_0: _bendyworks$elm_action_cable$ActionCable_Decoder$pingDecoder,
+			_1: {
+				ctor: '::',
+				_0: _bendyworks$elm_action_cable$ActionCable_Decoder$confirmDecoder,
+				_1: {
+					ctor: '::',
+					_0: _bendyworks$elm_action_cable$ActionCable_Decoder$receiveDataDecoder,
+					_1: {
+						ctor: '::',
+						_0: _bendyworks$elm_action_cable$ActionCable_Decoder$rejectionDecoder,
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		}
+	});
+var _bendyworks$elm_action_cable$ActionCable_Decoder$parseJson = function (string) {
+	return A2(_elm_lang$core$Json_Decode$decodeString, _bendyworks$elm_action_cable$ActionCable_Decoder$decoder, string);
+};

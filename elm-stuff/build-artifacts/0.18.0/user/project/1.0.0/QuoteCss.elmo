@@ -1,0 +1,44 @@
+var _user$project$QuoteCss$QuoteSmallText = {ctor: 'QuoteSmallText'};
+var _user$project$QuoteCss$quoteSmallText = {
+	ctor: '::',
+	_0: A2(
+		_rtfeldman$elm_css$Css$class,
+		_user$project$QuoteCss$QuoteSmallText,
+		{
+			ctor: '::',
+			_0: _rtfeldman$elm_css$Css$display(_rtfeldman$elm_css$Css$inlineBlock),
+			_1: {ctor: '[]'}
+		}),
+	_1: {ctor: '[]'}
+};
+var _user$project$QuoteCss$Quote = {ctor: 'Quote'};
+var _user$project$QuoteCss$quote = {
+	ctor: '::',
+	_0: A2(
+		_rtfeldman$elm_css$Css$class,
+		_user$project$QuoteCss$Quote,
+		{
+			ctor: '::',
+			_0: _rtfeldman$elm_css$Css$display(_rtfeldman$elm_css$Css$inlineBlock),
+			_1: {ctor: '[]'}
+		}),
+	_1: {ctor: '[]'}
+};
+var _user$project$QuoteCss$QuoteContainer = {ctor: 'QuoteContainer'};
+var _user$project$QuoteCss$quoteContainer = {
+	ctor: '::',
+	_0: A2(
+		_rtfeldman$elm_css$Css$class,
+		_user$project$QuoteCss$QuoteContainer,
+		{
+			ctor: '::',
+			_0: _rtfeldman$elm_css$Css$displayFlex,
+			_1: {ctor: '[]'}
+		}),
+	_1: {ctor: '[]'}
+};
+var _user$project$QuoteCss$quoteStylesheet = _rtfeldman$elm_css$Css$stylesheet(
+	A2(
+		_elm_lang$core$Basics_ops['++'],
+		_user$project$QuoteCss$quoteContainer,
+		A2(_elm_lang$core$Basics_ops['++'], _user$project$QuoteCss$quote, _user$project$QuoteCss$quoteSmallText)));
